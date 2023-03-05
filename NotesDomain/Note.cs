@@ -13,6 +13,6 @@ namespace NotesDomain
         public string Title { get; set; }
         public string Deatails { get; set; }
         public DateTime CreationDate { get; set; }
-        public DateTime? EditDate { get; set }
+        public DateTime? EditDate { get; set; }
     }
 }
