@@ -10,15 +10,14 @@ namespace NotesApplication.Common.Mappings
 {
     public class AssemblyMappingProfile : Profile
     {
-        public AssemblyMappingProfile(Assembly assembly) => ApplyMappingFromAssembly(assembly);
+        public AssemblyMappingProfile(Assembly assembly) => 
+            ApplyMappingsFromAssembly(assembly);
 
-        private void ApplyMappingFromAssembly(Assembly assembly)
+        private void ApplyMappingsFromAssembly(Assembly assembly)
         {
             var types = assembly.GetExportedTypes()
-                .Where(type =>
-                    type.GetInterfaces()
-                        .Any(i => i.IsGenericType && 
-                                  i.GetGenericTypeDefinition() = typeof(IMapWith<>)))
+                .Where(type => type.GetInterfaces()
+                        .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapWith<>)))
                 .ToList();
             foreach (var type in types)
             {
