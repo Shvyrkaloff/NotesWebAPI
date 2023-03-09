@@ -23,6 +23,7 @@ namespace NotesWebApi
             });
             services.AddApplicaton();
             services.AddPersistence(Configuration);
+            services.AddControllers();
 
             services.AddCors(options =>
             {
