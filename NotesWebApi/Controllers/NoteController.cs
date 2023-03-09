@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using NotesApplication.Notes.Queries.GetNoteDetails;
-using NotesApplication.Notes.Queries.GetNotesList;
-using NotesApplication.Notes.Commands.CreateNote;
-using NotesApplication.Notes.Commands.UpdateNote;
-using NotesApplication.Notes.Commands.DeleteCommand;
+﻿using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using MediatR;
 using NotesWebApi.Models;
+using NotesWebApi.Notes.Commands.CreateNote;
+using NotesWebApi.Notes.Commands.DeleteCommand;
+using NotesWebApi.Notes.Commands.UpdateNote;
+using NotesWebApi.Notes.Queries.GetNoteDetails;
+using NotesWebApi.Notes.Queries.GetNotesList;
 
 namespace NotesWebApi.Controllers
 {
@@ -19,28 +15,31 @@ namespace NotesWebApi.Controllers
     public class NoteController : BaseController
     {
         private readonly IMapper _mapper;
-        public NoteController(IMapper mapper) => _mapper = mapper;
+
+        private readonly IMediator _mediator;
+
+        public NoteController(IMapper mapper, IMediator mediator)
+        {
+            _mapper = mapper;
+            _mediator = mediator;
+        }
 
         [HttpGet]
         public async Task<ActionResult<NoteDetailsVm>> GetAll()
         {
-            var query = new GetListNoteQuery
-            {
-                UserId = UserId
-            };
-            var vm = await Mediator.Send(query);
+            var vm = await _mediator.Send(new GetListNoteQuery(UserId));
             return Ok(vm);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<NoteDetailsVm>> Get(Guid id)
+        public async Task<ActionResult<NoteDetailsVm>> Get(string id)
         {
             var query = new GetNoteDatailsQuery
             {
                 UserId = UserId,
                 Id = id
             };
-            var vm = await Mediator.Send(query);
+            var vm = await _mediator.Send(query);
             return Ok(vm);
         }
 
@@ -48,8 +47,8 @@ namespace NotesWebApi.Controllers
         public async Task<ActionResult<Guid>> Create([FromBody] CreateNoteDto createNoteDto)
         {
             var command = _mapper.Map<CreateNoteCommand>(createNoteDto);
-            command.UserId = await Mediator.Send(command);
-            var noteId = await Mediator.Send(command);
+            command.UserId = await _mediator.Send(command);
+            var noteId = await _mediator.Send(command);
             return Ok(noteId);
         }
 
@@ -58,19 +57,19 @@ namespace NotesWebApi.Controllers
         {
             var command = _mapper.Map<UpdateNoteCommand>(updateNoteDto);
             command.UserId = UserId;
-            await Mediator.Send(command);
+            await _mediator.Send(command);
             return NoContent();
         }
 
         [HttpDelete]
-        public async Task<ActionResult> Delete(Guid id)
+        public async Task<ActionResult> Delete(string id)
         {
             var command = new DeleteNoteCommand
             {
                 Id = id,
                 UserId = UserId
             };
-            await Mediator.Send(command);
+            await _mediator.Send(command);
             return NoContent();
         }
     }

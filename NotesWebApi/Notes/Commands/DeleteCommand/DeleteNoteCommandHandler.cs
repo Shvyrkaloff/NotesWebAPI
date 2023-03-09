@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
-using System.Threading;
-using NotesApplication.Interfaces;
+﻿using MediatR;
 using NotesApplication.Common.Exception;
-using NotesDomain;
+using NotesPresistence;
 
-namespace NotesApplication.Notes.Commands.DeleteCommand
+namespace NotesWebApi.Notes.Commands.DeleteCommand
 {
     public class DeleteNoteCommandHandler : IRequestHandler<DeleteNoteCommand, Unit>
     {
@@ -18,7 +11,7 @@ namespace NotesApplication.Notes.Commands.DeleteCommand
         public async Task<Unit> Handle(DeleteNoteCommand request, CancellationToken cancellationToken)
         {
             var entity = await _dbContext.Notes.FindAsync(new object[] { request.Id }, cancellationToken);
-            if (entity == null || entity.UserId != request.UserId)
+            if (entity == null || entity.UserId != request.UserId.ToString())
             {
                 throw new NotFoundException(nameof(Note), request.Id);
             }

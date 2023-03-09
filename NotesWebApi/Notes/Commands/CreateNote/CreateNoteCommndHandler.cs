@@ -1,32 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
-using NotesApplication.Interfaces;
-using NotesDomain;
+﻿using MediatR;
+using NotesPresistence;
 
-namespace NotesApplication.Notes.Commands.CreateNote
+namespace NotesWebApi.Notes.Commands.CreateNote
 {
-    public class CreateNoteCommndHandler :IRequestHandler<CreateNoteCommand, Guid>
+    public class CreateNoteCommndHandler :IRequestHandler<CreateNoteCommand, string>
     {
         private  readonly  INotesDbContext _dbContext;
         public CreateNoteCommndHandler(INotesDbContext dbContext) => _dbContext = dbContext;
-        public async Task<Guid> Handle(CreateNoteCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(CreateNoteCommand request, CancellationToken cancellationToken)
         {
             var note = new Note
             {
-                UserId = request.UserId,
+                UserId = request.UserId.ToString(),
                 Title = request.Title,
                 Deatails = request.Details,
-                Id = Guid.NewGuid(),
+                Id = Guid.NewGuid().ToString(),
                 CreationDate = DateTime.Now,
                 EditDate = null
             };
             await _dbContext.Notes.AddAsync(note, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
-            return note.Id;
+            return note.Id.ToString();
         }
     }
 }
