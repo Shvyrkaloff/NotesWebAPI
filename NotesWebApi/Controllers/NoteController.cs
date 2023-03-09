@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NotesApplication.Notes.Queries.GetNoteDetails;
 using NotesApplication.Notes.Queries.GetNotesList;
 using NotesApplication.Notes.Commands.CreateNote;
 using NotesApplication.Notes.Commands.UpdateNote;
 using NotesApplication.Notes.Commands.DeleteCommand;
 using AutoMapper;
+using MediatR;
 using NotesWebApi.Models;
 
 namespace NotesWebApi.Controllers
@@ -19,21 +15,24 @@ namespace NotesWebApi.Controllers
     public class NoteController : BaseController
     {
         private readonly IMapper _mapper;
-        public NoteController(IMapper mapper) => _mapper = mapper;
+
+        private readonly IMediator _mediator;
+
+        public NoteController(IMapper mapper, IMediator mediator)
+        {
+            _mapper = mapper;
+            _mediator = mediator;
+        }
 
         [HttpGet]
         public async Task<ActionResult<NoteDetailsVm>> GetAll()
         {
-            var query = new GetListNoteQuery
-            {
-                UserId = UserId
-            };
-            var vm = await Mediator.Send(query);
+            var vm = await _mediator.Send(new GetListNoteQuery());
             return Ok(vm);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<NoteDetailsVm>> Get(Guid id)
+        public async Task<ActionResult<NoteDetailsVm>> Get(string id)
         {
             var query = new GetNoteDatailsQuery
             {
@@ -63,7 +62,7 @@ namespace NotesWebApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult> Delete(Guid id)
+        public async Task<ActionResult> Delete(string id)
         {
             var command = new DeleteNoteCommand
             {
