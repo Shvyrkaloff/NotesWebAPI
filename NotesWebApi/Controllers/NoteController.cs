@@ -11,13 +11,17 @@ using NotesApplication.Notes.Commands.UpdateNote;
 using NotesApplication.Notes.Commands.DeleteCommand;
 using AutoMapper;
 using NotesWebApi.Models;
+
 namespace NotesWebApi.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class NoteController : BaseController
     {
         private readonly IMapper _mapper;
         public NoteController(IMapper mapper) => _mapper = mapper;
+
+        [HttpGet]
         public async Task<ActionResult<NoteDetailsVm>> GetAll()
         {
             var query = new GetListNoteQuery
@@ -69,4 +73,5 @@ namespace NotesWebApi.Controllers
             await Mediator.Send(command);
             return NoContent();
         }
+    }
 }

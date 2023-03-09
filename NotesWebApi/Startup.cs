@@ -7,6 +7,11 @@ using NotesPresistence;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
+using Swashbuckle.AspNetCore.Swagger;
+using AutoMapper;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Swashbuckle.AspNetCore.SwaggerUI;
+
 namespace NotesWebApi
 {
     public class Startup
@@ -34,6 +39,7 @@ namespace NotesWebApi
                     policy.AllowAnyOrigin();
                 });
             });
+            services.AddSwaggerGen();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -42,7 +48,12 @@ namespace NotesWebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseSwagger();
+            app.UseSwaggerUI(config =>
+            {
+                config.RoutePrefix = string.Empty;
+                config.SwaggerEndpoint("swagger/v1/swagger.json", "Notes API");
+            });
             app.UseRouting();
             app.UseHttpsRedirection();
             app.UseCors();

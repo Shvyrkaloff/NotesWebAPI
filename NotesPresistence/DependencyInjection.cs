@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
-using NotesApplication.Interfaces;;
+using NotesApplication.Interfaces;
 
 namespace NotesPresistence
 {
