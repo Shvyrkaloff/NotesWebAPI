@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using NotesApplication.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using NotesApplication.Common.Exception;
@@ -12,7 +6,7 @@ using NotesDomain;
 
 namespace NotesApplication.Notes.Commands.UpdateNote
 {
-    public class UpdateNoteCommandHandler : IRequestHandler<UpdateNoteCommand>
+    public class UpdateNoteCommandHandler : IRequestHandler<UpdateNoteCommand, Unit>
     {
         private readonly  INotesDbContext _dbContext;
         public UpdateNoteCommandHandler(INotesDbContext dbContext) => _dbContext = dbContext;
