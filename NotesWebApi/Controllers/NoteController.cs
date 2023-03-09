@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NotesApplication.Notes.Queries.GetNoteDetails;
-using NotesApplication.Notes.Queries.GetNotesList;
-using NotesApplication.Notes.Commands.CreateNote;
-using NotesApplication.Notes.Commands.UpdateNote;
-using NotesApplication.Notes.Commands.DeleteCommand;
 using AutoMapper;
 using MediatR;
 using NotesWebApi.Models;
+using NotesWebApi.Notes.Commands.CreateNote;
+using NotesWebApi.Notes.Commands.DeleteCommand;
+using NotesWebApi.Notes.Commands.UpdateNote;
+using NotesWebApi.Notes.Queries.GetNoteDetails;
+using NotesWebApi.Notes.Queries.GetNotesList;
 
 namespace NotesWebApi.Controllers
 {
@@ -27,7 +27,7 @@ namespace NotesWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<NoteDetailsVm>> GetAll()
         {
-            var vm = await _mediator.Send(new GetListNoteQuery());
+            var vm = await _mediator.Send(new GetListNoteQuery(UserId));
             return Ok(vm);
         }
 
@@ -39,7 +39,7 @@ namespace NotesWebApi.Controllers
                 UserId = UserId,
                 Id = id
             };
-            var vm = await Mediator.Send(query);
+            var vm = await _mediator.Send(query);
             return Ok(vm);
         }
 
@@ -47,8 +47,8 @@ namespace NotesWebApi.Controllers
         public async Task<ActionResult<Guid>> Create([FromBody] CreateNoteDto createNoteDto)
         {
             var command = _mapper.Map<CreateNoteCommand>(createNoteDto);
-            command.UserId = await Mediator.Send(command);
-            var noteId = await Mediator.Send(command);
+            command.UserId = await _mediator.Send(command);
+            var noteId = await _mediator.Send(command);
             return Ok(noteId);
         }
 
@@ -57,7 +57,7 @@ namespace NotesWebApi.Controllers
         {
             var command = _mapper.Map<UpdateNoteCommand>(updateNoteDto);
             command.UserId = UserId;
-            await Mediator.Send(command);
+            await _mediator.Send(command);
             return NoContent();
         }
 
@@ -69,7 +69,7 @@ namespace NotesWebApi.Controllers
                 Id = id,
                 UserId = UserId
             };
-            await Mediator.Send(command);
+            await _mediator.Send(command);
             return NoContent();
         }
     }

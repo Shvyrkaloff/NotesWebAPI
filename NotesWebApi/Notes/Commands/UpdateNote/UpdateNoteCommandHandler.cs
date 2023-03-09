@@ -1,10 +1,9 @@
 ﻿using MediatR;
-using NotesApplication.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using NotesApplication.Common.Exception;
-using NotesDomain;
+using NotesPresistence;
 
-namespace NotesApplication.Notes.Commands.UpdateNote
+namespace NotesWebApi.Notes.Commands.UpdateNote
 {
     public class UpdateNoteCommandHandler : IRequestHandler<UpdateNoteCommand, Unit>
     {

@@ -48,7 +48,7 @@ namespace NotesPresistence.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Notes");
+                    b.ToTable("Notes", (string)null);
                 });
 #pragma warning restore 612, 618
         }

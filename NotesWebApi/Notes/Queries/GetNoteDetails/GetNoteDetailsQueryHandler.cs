@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NotesApplication.Common.Exception;
-using NotesApplication.Interfaces;
-using NotesDomain;
+using NotesPresistence;
 
-namespace NotesApplication.Notes.Queries.GetNoteDetails
+namespace NotesWebApi.Notes.Queries.GetNoteDetails
 {
     public class GetNoteDetailsQueryHandler : IRequestHandler<GetNoteDatailsQuery, NoteDetailsVm>
     {

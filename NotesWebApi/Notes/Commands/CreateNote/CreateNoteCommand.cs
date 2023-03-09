@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace NotesApplication.Notes.Commands.CreateNote
+namespace NotesWebApi.Notes.Commands.CreateNote
 {
     public class CreateNoteCommand : IRequest<string>
     {

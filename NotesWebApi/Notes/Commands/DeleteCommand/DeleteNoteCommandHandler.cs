@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
-using System.Threading;
-using NotesApplication.Interfaces;
+﻿using MediatR;
 using NotesApplication.Common.Exception;
-using NotesDomain;
+using NotesPresistence;
 
-namespace NotesApplication.Notes.Commands.DeleteCommand
+namespace NotesWebApi.Notes.Commands.DeleteCommand
 {
     public class DeleteNoteCommandHandler : IRequestHandler<DeleteNoteCommand, Unit>
     {

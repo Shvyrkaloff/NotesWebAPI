@@ -1,4 +1,4 @@
-﻿namespace NotesApplication.Notes.Queries.GetNotesList;
+﻿namespace NotesWebApi.Notes.Queries.GetNotesList;
 
 public class NoteListVm
 {

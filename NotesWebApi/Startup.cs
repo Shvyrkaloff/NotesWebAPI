@@ -1,19 +1,23 @@
 ﻿using System.Reflection;
 using MediatR;
 using NotesApplication.Common.Mappings;
-using NotesApplication.Interfaces;
 using NotesApplication;
 using NotesPresistence;
+using NotesWebApi.Data;
 
 namespace NotesWebApi
 {
     public class Startup
     {
         public IConfiguration Configuration { get; set; }
-        public Startup(IConfiguration configuration) => Configuration = configuration;
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddAutoMapper(config =>
             {
                 config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
@@ -22,7 +26,8 @@ namespace NotesWebApi
             services.AddApplicaton();
             services.AddPersistence(Configuration);
             services.AddControllers();
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Startup).Assembly));
 
             services.AddCors(options =>
             {

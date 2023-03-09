@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using NotesApplication.Common.Mappings;
-using NotesDomain;
+using NotesPresistence;
 
-namespace NotesApplication.Notes.Queries.GetNoteDetails
+namespace NotesWebApi.Notes.Queries.GetNoteDetails
 {
     public class NoteDetailsVm : IMapWith<Note>
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Title { get; set; }
         public string Details { get; set; }
         public DateTime CreationDate { get; set; }

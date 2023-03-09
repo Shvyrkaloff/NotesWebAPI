@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace NotesApplication.Notes.Commands.UpdateNote
+namespace NotesWebApi.Notes.Commands.UpdateNote
 {
     public class UpdateNoteCommand : IRequest<Unit>
     {

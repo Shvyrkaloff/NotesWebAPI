@@ -1,7 +1,6 @@
 ﻿using MediatR;
 
-
-namespace NotesApplication.Notes.Queries.GetNoteDetails
+namespace NotesWebApi.Notes.Queries.GetNoteDetails
 {
     public class GetNoteDatailsQuery : IRequest<NoteDetailsVm>
     {

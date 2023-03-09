@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using NotesApplication.Common.Mappings;
-using NotesApplication.Notes.Commands.UpdateNote;
+using NotesWebApi.Notes.Commands.UpdateNote;
 
 namespace NotesWebApi.Models
 {

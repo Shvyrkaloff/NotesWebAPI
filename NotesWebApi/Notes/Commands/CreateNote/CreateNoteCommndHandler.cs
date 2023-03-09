@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
-using NotesApplication.Interfaces;
-using NotesDomain;
+﻿using MediatR;
+using NotesPresistence;
 
-namespace NotesApplication.Notes.Commands.CreateNote
+namespace NotesWebApi.Notes.Commands.CreateNote
 {
     public class CreateNoteCommndHandler :IRequestHandler<CreateNoteCommand, string>
     {
