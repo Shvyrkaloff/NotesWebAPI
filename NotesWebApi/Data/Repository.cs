@@ -30,7 +30,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, n
         {
             throw new ArgumentNullException($"{nameof(AddAsync)} entity must not be null");
         }
-
         try
         {
             await ((NotesDbContext)_dbContext).AddAsync(entity);
@@ -61,6 +60,20 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, n
         catch (Exception)
         {
             throw new Exception($"{nameof(entity)} could not be updated");
+        }
+    }
+    public async Task<TEntity> DeleteAsync(TEntity entity)
+    {
+        try
+        {
+            ((NotesDbContext)_dbContext).Remove(entity);
+            await ((NotesDbContext)_dbContext).SaveChangesAsync();
+
+            return entity;
+        }
+        catch (Exception)
+        {
+            throw new Exception($"{nameof(entity)} could not be removed");
         }
     }
 }
