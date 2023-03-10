@@ -34,11 +34,7 @@ namespace NotesWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<NoteDetailsVm>> Get(string id)
         {
-            var query = new GetNoteDatailsQuery
-            {
-                UserId = UserId,
-                Id = id
-            };
+            var query = new GetNoteDatailsQuery(UserId, id);
             var vm = await _mediator.Send(query);
             return Ok(vm);
         }

@@ -3,24 +3,21 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NotesApplication.Common.Exception;
 using NotesPresistence;
+using NotesWebApi.Data;
 
 namespace NotesWebApi.Notes.Queries.GetNoteDetails
 {
-    public class GetNoteDetailsQueryHandler : IRequestHandler<GetNoteDatailsQuery, NoteDetailsVm>
+    public class GetNoteDetailsQueryHandler : IRequestHandler<GetNoteDatailsQuery, List<NoteDetailsVm>?>
     {
-        private readonly INotesDbContext _dbContext;
+        private readonly IRepository<Note> _repository;
         private readonly IMapper _mapper;
 
-        public GetNoteDetailsQueryHandler(INotesDbContext dbContext, IMapper mapper) => (_dbContext, _mapper) = (dbContext, mapper);
-        public async Task<NoteDetailsVm> Handle(GetNoteDatailsQuery request, CancellationToken cancellationToken)
+        public GetNoteDetailsQueryHandler(IRepository<Note> repository, IMapper mapper) => (_repository, _mapper) = (repository, mapper);
+        public async Task<List<NoteDetailsVm>?> Handle(GetNoteDatailsQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _dbContext.Notes.FirstOrDefaultAsync(note => note.Id == request.Id.ToString(), cancellationToken);
-            if (entity == null || entity.UserId != request.UserId.ToString())
-            {
-                throw new NotFoundException(nameof(Note), request.Id);
-            }
-
-            return _mapper.Map<NoteDetailsVm>(entity);
+            var detailsQuery = _repository.GetAll().ToList();
+            
+            return _mapper.Map(detailsQuery, new List<NoteDetailsVm>());
         }
     }
 }
