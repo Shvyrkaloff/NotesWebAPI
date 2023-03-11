@@ -52,7 +52,8 @@ namespace NotesWebApi.Controllers
         public async Task<ActionResult> Update([FromBody] UpdateNoteDto updateNoteDto)
         {
             var command = _mapper.Map<UpdateNoteCommand>(updateNoteDto);
-            command.UserId = UserId;
+            if (UserId != null) 
+                command.UserId = UserId;
             await _mediator.Send(command);
             return NoContent();
         }

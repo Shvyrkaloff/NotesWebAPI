@@ -6,11 +6,14 @@ namespace NotesWebApi
     {
         public static void Main(string[] args)
         {
-           var host = CreateHostBuilder(args).Build();
-           host.Run();
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
 
-           using (var scope = host.Services.CreateScope())
-           {
+            var host = CreateHostBuilder(args).Build();
+            host.Run();
+
+            using (var scope = host.Services.CreateScope())
+            {
                 var serviceProvider = scope.ServiceProvider;
                 try
                 {
@@ -21,14 +24,11 @@ namespace NotesWebApi
                 {
 
                 }
-           }
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuider =>
-            {
-                webBuider.UseStartup<Startup>();
-            });
+            Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuider => { webBuider.UseStartup<Startup>(); });
     }
 }
 
