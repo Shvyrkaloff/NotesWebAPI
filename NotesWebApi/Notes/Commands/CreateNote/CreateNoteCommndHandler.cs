@@ -13,7 +13,7 @@ namespace NotesWebApi.Notes.Commands.CreateNote
             {
                 UserId = request.UserId.ToString(),
                 Title = request.Title,
-                Deatails = request.Details,
+                Details = request.Details,
                 Id = Guid.NewGuid().ToString(),
                 CreationDate = DateTime.Now,
                 EditDate = null
