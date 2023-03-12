@@ -43,7 +43,8 @@ namespace NotesWebApi.Controllers
         public async Task<ActionResult<Guid>> Create([FromBody] CreateNoteDto createNoteDto)
         {
             var command = _mapper.Map<CreateNoteCommand>(createNoteDto);
-            command.UserId = await _mediator.Send(command);
+            if (UserId != null)
+                command.UserId = UserId;
             var noteId = await _mediator.Send(command);
             return Ok(noteId);
         }
