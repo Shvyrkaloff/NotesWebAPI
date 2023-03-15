@@ -1,8 +1,9 @@
-﻿using AntDesign.TableModels;
-using AntDesign;
-using System.ComponentModel;
-using System.Text.Json;
+﻿using AntDesign;
+using AntDesign.TableModels;
 using Microsoft.AspNetCore.Components;
+using NotesPresistence;
+using OneOf.Types;
+using System.Text.Json;
 using WebClient.Services;
 
 namespace WebClient.Components;
@@ -15,79 +16,49 @@ namespace WebClient.Components;
 public partial class NotesTable
 {
     [Inject]
-    private INoteService NoteService { get; set; }
+    private INoteService? NoteService { get; set; }
 
-    WeatherForecast[] forecasts;
+    private List<NoteLookUpDto>? Notes { get; set; } = new();
 
-    IEnumerable<WeatherForecast> selectedRows;
-    ITable table;
+    private IEnumerable<NoteLookUpDto>? SelectedRows { get; set; }
 
-    int _pageIndex = 1;
-    int _pageSize = 10;
-    int _total = 0;
+    private ITable? _table;
+
+    private int _pageIndex = 1;
+
+    private int _pageSize = 10;
+
+    private int _total = 0;
 
     protected override async Task OnInitializedAsync()
     {
-        var ret = NoteService.GetAll();
+        Notes = new List<NoteLookUpDto>();
 
-        forecasts = await GetForecastAsync(1, 50);
+        var ret = await NoteService?.GetAll()!;
+
+        if (ret != null)
+            Notes = ret;
+
         _total = 50;
     }
 
-    public class WeatherForecast
-    {
-        public int Id { get; set; }
-
-        [DisplayName("Date")]
-        public DateTime? Date { get; set; }
-
-        [DisplayName("Temp. (C)")]
-        public int TemperatureC { get; set; }
-
-        [DisplayName("Summary")]
-        public string Summary { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-
-        public bool Hot { get; set; }
-    }
-
-    private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-    public async Task OnChange(QueryModel<WeatherForecast> queryModel)
+    public async Task OnChange(QueryModel<NoteLookUpDto> queryModel)
     {
         Console.WriteLine(JsonSerializer.Serialize(queryModel));
     }
 
-    public Task<WeatherForecast[]> GetForecastAsync(int pageIndex, int pageSize)
-    {
-        var rng = new Random();
-        return Task.FromResult(Enumerable.Range((pageIndex - 1) * pageSize + 1, pageSize).Select(index =>
-        {
-            var temperatureC = rng.Next(-20, 55);
-            return new WeatherForecast
-            {
-                Id = index,
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = temperatureC,
-                Summary = Summaries[rng.Next(Summaries.Length)],
-                Hot = temperatureC > 30,
-            };
-        }).ToArray());
-    }
-
     public void RemoveSelection(int id)
     {
-        var selected = selectedRows.Where(x => x.Id != id);
-        selectedRows = selected;
+        var selected = SelectedRows!.Where(x => x.Id != id.ToString());
+        SelectedRows = selected;
     }
 
     private void Delete(int id)
     {
-        forecasts = forecasts.Where(x => x.Id != id).ToArray();
-        _total = forecasts.Length;
+        if (Notes != null)
+        {
+            Notes = Notes.Where(x => x.Id != id.ToString()).ToList();
+            _total = Notes.Count;
+        }
     }
 }

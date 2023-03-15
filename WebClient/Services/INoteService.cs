@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using NotesPresistence;
+﻿using NotesPresistence;
 
 namespace WebClient.Services;
 
 public interface INoteService
 {
-    public Task<ActionResult<NoteDetailsVm>> GetAll();
+    public Task<List<NoteLookUpDto>?> GetAll();
 }

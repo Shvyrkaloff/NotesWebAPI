@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using NotesPresistence;
 
 namespace NotesWebApi.Notes.Queries.GetNotesList;
 

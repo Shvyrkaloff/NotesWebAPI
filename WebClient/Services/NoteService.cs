@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using NotesPresistence;
+﻿using NotesPresistence;
 
 namespace WebClient.Services;
 
@@ -12,9 +11,10 @@ public class NoteService : INoteService
         _httpClient = httpClient;
     }
     
-    public async Task<ActionResult<NoteDetailsVm>> GetAll()
+    public async Task<List<NoteLookUpDto>?> GetAll()
     {
-        var result = await _httpClient?.GetFromJsonAsync<ActionResult<NoteDetailsVm>>("api/note")!;
+        var result = await _httpClient?.GetFromJsonAsync<List<NoteLookUpDto>>("api/note")!;
+
         return result;
     }
 }

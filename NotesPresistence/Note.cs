@@ -1,4 +1,6 @@
-﻿namespace NotesPresistence;
+﻿using System.Text.Json.Serialization;
+
+namespace NotesPresistence;
 
 /// <summary>
 /// Class Note.
@@ -33,11 +35,13 @@ public class Note
     /// Gets or sets the creation date.
     /// </summary>
     /// <value>The creation date.</value>
+    [JsonIgnore]
     public DateTime CreationDate { get; set; }
 
     /// <summary>
     /// Gets or sets the edit date.
     /// </summary>
     /// <value>The edit date.</value>
+    [JsonIgnore]
     public DateTime? EditDate { get; set; }
 }

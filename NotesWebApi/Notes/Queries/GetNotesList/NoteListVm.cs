@@ -1,4 +1,6 @@
-﻿namespace NotesWebApi.Notes.Queries.GetNotesList;
+﻿using NotesPresistence;
+
+namespace NotesWebApi.Notes.Queries.GetNotesList;
 
 public class NoteListVm
 {
