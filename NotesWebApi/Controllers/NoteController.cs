@@ -100,7 +100,7 @@ public class NoteController : BaseController
     /// </summary>
     /// <param name="id">The identifier.</param>
     /// <returns>ActionResult.</returns>
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(string id)
     {
         var command = new DeleteNoteCommand

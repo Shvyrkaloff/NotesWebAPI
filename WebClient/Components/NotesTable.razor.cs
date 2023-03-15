@@ -34,7 +34,7 @@ public partial class NotesTable
     {
         Notes = new List<NoteLookUpDto>();
 
-        var ret = await NoteService?.GetAll()!;
+        var ret = await NoteService?.GetAllAsync()!;
 
         if (ret != null)
             Notes = ret;
@@ -53,11 +53,17 @@ public partial class NotesTable
         SelectedRows = selected;
     }
 
-    private void Delete(int id)
+    private async void Delete(int id)
     {
         if (Notes != null)
         {
-            Notes = Notes.Where(x => x.Id != id.ToString()).ToList();
+            Notes = Notes.Where(x => x.Id == id.ToString()).ToList();
+
+            foreach (var note in Notes)
+            {
+                await NoteService?.DeleteAsync(note.Id)!;
+            }
+
             _total = Notes.Count;
         }
     }
