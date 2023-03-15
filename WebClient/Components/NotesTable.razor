@@ -1,0 +1,45 @@
+﻿<Table @ref="table"
+       TItem="WeatherForecast"
+       DataSource="@forecasts"
+       Total="_total"
+       @bind-PageIndex="_pageIndex"
+       @bind-PageSize="_pageSize"
+       @bind-SelectedRows="selectedRows"
+       OnChange="OnChange">
+  <Selection Key="@(context.Id.ToString())" />
+  <PropertyColumn Property="c=>c.Id" Sortable />
+  <PropertyColumn Property="c=>c.Date" Format="yyyy-MM-dd" Sortable />
+  <PropertyColumn Property="c=>c.TemperatureC" Sortable />
+  <PropertyColumn Title="Temp. (F)" Property="c=>c.TemperatureF" />
+  <PropertyColumn Title="Hot" Property="c=>c.Hot">
+    <Switch @bind-Value="@context.Hot"></Switch>
+  </PropertyColumn>
+  <PropertyColumn Property="c=>c.Summary" Sortable />
+  <ActionColumn Title="Action">
+    <Space>
+      <SpaceItem><Button Danger OnClick="()=>Delete(context.Id)">Delete</Button></SpaceItem>
+    </Space>
+  </ActionColumn>
+</Table>
+
+<br />
+<p>PageIndex: @_pageIndex | PageSize: @_pageSize | Total: @_total</p>
+
+<br />
+<h5>selections:</h5>
+@if (selectedRows != null && selectedRows.Any())
+{
+  <Button Danger Size="small" OnClick="@(e => { selectedRows = null; })">Clear</Button>
+
+  @foreach (var selected in selectedRows)
+  {
+    <Tag @key="selected.Id" Closable OnClose="e=>RemoveSelection(selected.Id)">@selected.Id - @selected.Summary</Tag>
+  }
+}
+
+<Button OnClick="()=> { _pageIndex--; }">Previous page</Button>
+<Button OnClick="()=> { _pageIndex++; }">Next Page</Button>
+
+@code {
+    
+}

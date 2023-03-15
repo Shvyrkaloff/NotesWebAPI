@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
+﻿using System.Reflection;
 using AutoMapper;
+using NotesPresistence.Mappings;
 
-namespace NotesApplication.Common.Mappings
+namespace NotesPresistence.Mapping
 {
     public class AssemblyMappingProfile : Profile
     {

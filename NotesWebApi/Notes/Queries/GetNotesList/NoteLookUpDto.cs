@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using NotesApplication.Common.Mappings;
 using NotesPresistence;
+using NotesPresistence.Mappings;
 
 namespace NotesWebApi.Notes.Queries.GetNotesList
 {

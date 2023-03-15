@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using MediatR;
+using NotesPresistence;
 using NotesWebApi.Models;
 using NotesWebApi.Notes.Commands.CreateNote;
 using NotesWebApi.Notes.Commands.DeleteCommand;
@@ -10,20 +11,40 @@ using NotesWebApi.Notes.Queries.GetNotesList;
 
 namespace NotesWebApi.Controllers
 {
+    /// <summary>
+    /// Class NoteController.
+    /// Implements the <see cref="NotesWebApi.Controllers.BaseController" />
+    /// </summary>
+    /// <seealso cref="NotesWebApi.Controllers.BaseController" />
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class NoteController : BaseController
     {
+        /// <summary>
+        /// The mapper
+        /// </summary>
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// The mediator
+        /// </summary>
         private readonly IMediator _mediator;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NoteController"/> class.
+        /// </summary>
+        /// <param name="mapper">The mapper.</param>
+        /// <param name="mediator">The mediator.</param>
         public NoteController(IMapper mapper, IMediator mediator)
         {
             _mapper = mapper;
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Gets all.
+        /// </summary>
+        /// <returns>ActionResult&lt;NoteDetailsVm&gt;.</returns>
         [HttpGet]
         public async Task<ActionResult<NoteDetailsVm>> GetAll()
         {
@@ -31,6 +52,11 @@ namespace NotesWebApi.Controllers
             return Ok(vm);
         }
 
+        /// <summary>
+        /// Gets the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>ActionResult&lt;NoteDetailsVm&gt;.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<NoteDetailsVm>> Get(string id)
         {
@@ -39,6 +65,11 @@ namespace NotesWebApi.Controllers
             return Ok(vm);
         }
 
+        /// <summary>
+        /// Creates the specified create note dto.
+        /// </summary>
+        /// <param name="createNoteDto">The create note dto.</param>
+        /// <returns>ActionResult&lt;Guid&gt;.</returns>
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateNoteDto createNoteDto)
         {
@@ -49,6 +80,11 @@ namespace NotesWebApi.Controllers
             return Ok(noteId);
         }
 
+        /// <summary>
+        /// Updates the specified update note dto.
+        /// </summary>
+        /// <param name="updateNoteDto">The update note dto.</param>
+        /// <returns>ActionResult.</returns>
         [HttpPut]
         public async Task<ActionResult> Update([FromBody] UpdateNoteDto updateNoteDto)
         {
@@ -59,6 +95,11 @@ namespace NotesWebApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>ActionResult.</returns>
         [HttpDelete]
         public async Task<ActionResult> Delete(string id)
         {

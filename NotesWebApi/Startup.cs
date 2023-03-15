@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
-using MediatR;
-using NotesApplication.Common.Mappings;
 using NotesApplication;
 using NotesPresistence;
+using NotesPresistence.Mapping;
 using NotesWebApi.Data;
 
 namespace NotesWebApi

@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using NotesApplication.Common.Mappings;
-using NotesPresistence;
+using NotesPresistence.Mappings;
 
-namespace NotesWebApi.Notes.Queries.GetNoteDetails
+namespace NotesPresistence
 {
     public class NoteDetailsVm : IMapWith<Note>
     {

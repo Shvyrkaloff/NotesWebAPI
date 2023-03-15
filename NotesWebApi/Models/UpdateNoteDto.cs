@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using NotesApplication.Common.Mappings;
+using NotesPresistence.Mappings;
 using NotesWebApi.Notes.Commands.UpdateNote;
 
 namespace NotesWebApi.Models;
