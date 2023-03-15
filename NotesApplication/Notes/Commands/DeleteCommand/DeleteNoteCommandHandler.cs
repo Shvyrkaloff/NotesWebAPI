@@ -2,14 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using NotesApplication.Common.Exception;
 using NotesPresistence;
-namespace NotesWebApi.Notes.Commands.DeleteCommand
-{
 
-    public class DeleteNoteCommand : IRequest<Unit>
-    {
-        public string UserId { get; set; }
-        public string Id { get; set; }
-    }
+namespace NotesApplication.Notes.Commands.DeleteCommand
+{
     public class DeleteNoteCommandHandler : IRequestHandler<DeleteNoteCommand, Unit>
     {
         private readonly INotesDbContext _dbContext;

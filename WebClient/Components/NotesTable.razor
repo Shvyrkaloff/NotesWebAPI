@@ -1,4 +1,10 @@
-﻿<Table @ref="_table"
+﻿<CreateNoteModal Visible="@Visible"></CreateNoteModal>
+
+<Button Type="primary" OnClick="@ShowModal">
+    Добавить
+</Button>
+
+<Table @ref="_table"
        TItem="NoteLookUpDto"
        DataSource="@Notes"
        Total="_total"

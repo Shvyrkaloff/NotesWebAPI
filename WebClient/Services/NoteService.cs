@@ -1,4 +1,5 @@
-﻿using NotesPresistence;
+﻿using NotesApplication.Models;
+using NotesPresistence;
 
 namespace WebClient.Services;
 
@@ -20,6 +21,12 @@ public class NoteService : INoteService
     public async Task<HttpResponseMessage> DeleteAsync(string id)
     {
         var result = await _httpClient?.DeleteAsync($"api/note/{id}")!;
+        return result;
+    }
+
+    public async Task<HttpResponseMessage> CreateAsync(CreateNoteDto note)
+    {
+        var result = await _httpClient?.PostAsJsonAsync<CreateNoteDto>("api/note", note)!;
         return result;
     }
 }

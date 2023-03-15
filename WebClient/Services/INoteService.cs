@@ -1,4 +1,5 @@
-﻿using NotesPresistence;
+﻿using NotesApplication.Models;
+using NotesPresistence;
 
 namespace WebClient.Services;
 
@@ -18,4 +19,6 @@ public interface INoteService
     /// </summary>
     /// <returns>Task&lt;HttpResponseMessage&gt;.</returns>
     public Task<HttpResponseMessage> DeleteAsync(string id);
+
+    public Task<HttpResponseMessage> CreateAsync(CreateNoteDto note);
 }

@@ -2,7 +2,6 @@
 using AntDesign.TableModels;
 using Microsoft.AspNetCore.Components;
 using NotesPresistence;
-using OneOf.Types;
 using System.Text.Json;
 using WebClient.Services;
 
@@ -29,6 +28,8 @@ public partial class NotesTable
     private int _pageSize = 10;
 
     private int _total = 0;
+
+    private bool Visible { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -66,5 +67,13 @@ public partial class NotesTable
 
             _total = Notes.Count;
         }
+    }
+
+    /// <summary>
+    /// Shows the modal.
+    /// </summary>
+    private void ShowModal()
+    {
+        Visible = true;
     }
 }

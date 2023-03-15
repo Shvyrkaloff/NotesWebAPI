@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using NotesApplication.Models;
+using NotesApplication.Notes.Commands.CreateNote;
+using NotesApplication.Notes.Commands.DeleteCommand;
+using NotesApplication.Notes.Commands.UpdateNote;
+using NotesApplication.Notes.Queries.GetNoteDetails;
+using NotesApplication.Notes.Queries.GetNotesList;
 using NotesPresistence;
-using NotesWebApi.Models;
-using NotesWebApi.Notes.Commands.CreateNote;
-using NotesWebApi.Notes.Commands.DeleteCommand;
-using NotesWebApi.Notes.Commands.UpdateNote;
-using NotesWebApi.Notes.Queries.GetNoteDetails;
-using NotesWebApi.Notes.Queries.GetNotesList;
 
 namespace NotesWebApi.Controllers;
 
@@ -31,7 +31,7 @@ public class NoteController : BaseController
     private readonly IMediator _mediator;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="NoteController"/> class.
+    /// Initializes a new instance of the <see cref="NoteController" /> class.
     /// </summary>
     /// <param name="mapper">The mapper.</param>
     /// <param name="mediator">The mediator.</param>
@@ -68,12 +68,18 @@ public class NoteController : BaseController
     /// <summary>
     /// Creates the specified create note dto.
     /// </summary>
-    /// <param name="createNoteDto">The create note dto.</param>
-    /// <returns>ActionResult&lt;Guid&gt;.</returns>
+    /// <param name="note">The create note dto.</param>
+    /// <returns>ActionResult&lt;System.String&gt;.</returns>
     [HttpPost]
-    public async Task<ActionResult<Guid>> Create([FromBody] CreateNoteDto createNoteDto)
+    public async Task<ActionResult<string>> Create(CreateNoteDto note)
     {
-        var command = _mapper.Map<CreateNoteCommand>(createNoteDto);
+        //todo: correct map
+        //var command = _mapper.Map<CreateNoteCommand>(note);
+        var command = new CreateNoteCommand()
+        {
+            Title = note.Title,
+            Details = note.Details
+        };
         if (UserId != null)
             command.UserId = UserId;
         var noteId = await _mediator.Send(command);
