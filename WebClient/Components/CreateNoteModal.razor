@@ -1,0 +1,23 @@
+﻿<Modal Title="@("BasicModal")"
+       Visible="@Visible"
+       OnOk="@HandleOk"
+       OnCancel="@HandleCancel">
+    <Form Loading="loading" 
+          Model="@_model"
+          LabelColSpan="8"
+          WrapperColSpan="16"
+          OnFinish="OnFinish"
+          OnFinishFailed="OnFinishFailed"
+          @ref="@_form">
+        <FormItem Label="Title">
+            <Input @bind-Value="@context.Title" />
+        </FormItem>        
+        <FormItem Label="Details">
+            <Input @bind-Value="@context.Details" />
+        </FormItem>
+    </Form>
+</Modal>
+
+@code {
+
+}
