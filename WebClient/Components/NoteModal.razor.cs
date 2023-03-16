@@ -27,8 +27,16 @@ public partial class NoteModal
     /// <summary>
     /// The model
     /// </summary>
+    /// <value>The model.</value>
     [Parameter]
     public CreateNoteDto? Model { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets the note identifier.
+    /// </summary>
+    /// <value>The note identifier.</value>
+    [Parameter]
+    public string? NoteId { get; set; }
 
     /// <summary>
     /// Called when [finish failed].
@@ -61,9 +69,24 @@ public partial class NoteModal
     [Parameter]
     public bool Visible { get; set; } = false;
 
+    /// <summary>
+    /// Gets or sets the visible changed.
+    /// </summary>
+    /// <value>The visible changed.</value>
     [Parameter]
     public EventCallback<bool> VisibleChanged { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is create.
+    /// </summary>
+    /// <value><c>true</c> if this instance is create; otherwise, <c>false</c>.</value>
+    [Parameter] 
+    public bool IsCreate { get; set; }
+
+    /// <summary>
+    /// Handles the <see cref="E:VisibleChanged" /> event.
+    /// </summary>
+    /// <param name="e">The <see cref="ChangeEventArgs" /> instance containing the event data.</param>
     private async Task OnVisibleChanged(ChangeEventArgs e)
     {
         Visible = (bool)e.Value!;
@@ -104,9 +127,22 @@ public partial class NoteModal
     /// <param name="e">The <see cref="MouseEventArgs" /> instance containing the event data.</param>
     private async void HandleOk(MouseEventArgs e)
     {
-        var ret = await NoteService?.CreateAsync(Model!)!;
-        _form?.Submit();
+        if (IsCreate)
+        {
+            var ret = await NoteService?.CreateAsync(Model!)!;
+            //todo: Update table in NotesTable.razor after create new note
+        }
+        else
+        {
+            var ret = await NoteService?.UpdateAsync(new UpdateNoteDto()
+            {
+                Id = NoteId,
+                Title = Model?.Title!,
+                Details = Model?.Details!,
+            })!;
+        }
 
+        _form?.Submit();
         StateHasChanged();
     }
 }

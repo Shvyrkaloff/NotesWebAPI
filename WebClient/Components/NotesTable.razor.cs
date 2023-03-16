@@ -61,10 +61,22 @@ public partial class NotesTable
     private bool IsVisible { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets a value indicating whether this instance is create.
+    /// </summary>
+    /// <value><c>true</c> if this instance is create; otherwise, <c>false</c>.</value>
+    private bool IsCreate { get; set; } = false;
+
+    /// <summary>
     /// Gets or sets the dto.
     /// </summary>
     /// <value>The dto.</value>
     private CreateNoteDto? Dto { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets the note identifier.
+    /// </summary>
+    /// <value>The note identifier.</value>
+    private string? NoteId { get; set; }
 
     /// <summary>
     /// On initialized as an asynchronous operation.
@@ -105,11 +117,11 @@ public partial class NotesTable
     /// Deletes the specified identifier.
     /// </summary>
     /// <param name="id">The identifier.</param>
-    private async void Delete(int id)
+    private async void Delete(string id)
     {
         if (Notes != null)
         {
-            Notes = Notes.Where(x => x.Id == id.ToString()).ToList();
+            Notes = Notes.Where(x => x.Id == id).ToList();
 
             foreach (var note in Notes)
             {
@@ -118,6 +130,8 @@ public partial class NotesTable
 
             _total = Notes.Count;
         }
+
+        StateHasChanged();
     }
 
     /// <summary>
@@ -127,6 +141,9 @@ public partial class NotesTable
     /// <returns>A Task representing the asynchronous operation.</returns>
     private async void UpdateAsync(string id)
     {
+        IsCreate = false;
+
+        NoteId = id;
         var ret = await NoteService?.GetIdAsync(id.ToString())!;
 
         Dto = new CreateNoteDto()
@@ -136,7 +153,6 @@ public partial class NotesTable
         };
         
         IsVisible = true;
-
         StateHasChanged();
     }
 
@@ -147,7 +163,10 @@ public partial class NotesTable
     {
         Dto = new CreateNoteDto();
 
+        IsCreate = true;
         IsVisible = true;
+
+        StateHasChanged();
     }
 
     /// <summary>

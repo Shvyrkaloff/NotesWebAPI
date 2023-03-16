@@ -2,7 +2,9 @@
 {
     <NoteModal
         @bind-Visible="@IsVisible"
-        Model="@Dto"/>
+        Model="@Dto"
+        NoteId="@NoteId"
+        IsCreate="@IsCreate" />
 }
 
 <Button Type="primary" OnClick="@ShowModal">
@@ -24,7 +26,7 @@
         <ActionColumn Title="Action">
             <Space>
                 <SpaceItem>
-                    <Button Danger OnClick="() => Delete(Convert.ToInt32(context.Id))">Delete</Button>
+                    <Button Danger OnClick="() => Delete(context.Id)">Delete</Button>
                 </SpaceItem>
             </Space>            
             <Space>

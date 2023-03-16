@@ -4,7 +4,7 @@ namespace NotesApplication.Notes.Commands.UpdateNote;
 
 public class UpdateNoteCommand : IRequest<Unit>
 {
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     public string UserId { get; set; }
 
