@@ -1,4 +1,11 @@
-﻿<CreateNoteModal Visible="@Visible"></CreateNoteModal>
+﻿@if (IsVisible)
+{
+    <NoteModal
+        @bind-Visible="@IsVisible"
+        Model="@Dto"
+        NoteId="@NoteId"
+        IsCreate="@IsCreate" />
+}
 
 <Button Type="primary" OnClick="@ShowModal">
     Добавить
@@ -17,9 +24,16 @@
         <PropertyColumn Property="c => c.Id" Sortable/>
         <PropertyColumn Property="c => c.Title" Sortable/>
         <ActionColumn Title="Action">
-        <Space>
-            <SpaceItem><Button Danger OnClick="() => Delete(Convert.ToInt32(context.Id))">Delete</Button></SpaceItem>
-        </Space>
+            <Space>
+                <SpaceItem>
+                    <Button Danger OnClick="() => Delete(context.Id)">Delete</Button>
+                </SpaceItem>
+            </Space>            
+            <Space>
+                <SpaceItem>
+                    <Button OnClick="() => UpdateAsync(context.Id)">Update</Button>
+                </SpaceItem>
+            </Space>
         </ActionColumn>
     </ChildContent>
 </Table>

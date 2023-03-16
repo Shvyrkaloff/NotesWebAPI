@@ -60,7 +60,7 @@ public class NoteController : BaseController
     [HttpGet("{id}")]
     public async Task<ActionResult<NoteDetailsVm>> Get(string id)
     {
-        var query = new GetNoteDatailsQuery(UserId, id);
+        var query = new GetNoteDetailsQuery(UserId, id);
         var vm = await _mediator.Send(query);
         return Ok(vm);
     }
@@ -94,7 +94,15 @@ public class NoteController : BaseController
     [HttpPut]
     public async Task<ActionResult> Update([FromBody] UpdateNoteDto updateNoteDto)
     {
-        var command = _mapper.Map<UpdateNoteCommand>(updateNoteDto);
+        //todo: correct map
+        //var command = _mapper.Map<UpdateNoteCommand>(updateNoteDto);
+        var command = new UpdateNoteCommand()
+        {
+            Id = updateNoteDto.Id,
+            Title = updateNoteDto.Title,
+            Details = updateNoteDto.Details
+        };
+
         if (UserId != null) 
             command.UserId = UserId;
         await _mediator.Send(command);

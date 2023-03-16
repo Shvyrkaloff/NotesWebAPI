@@ -13,6 +13,13 @@ public interface IRepository<TEntity> where TEntity : class, new()
     IQueryable<TEntity> GetAll();
 
     /// <summary>
+    /// Finds the specified identifier.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>TEntity.</returns>
+    TEntity? Find(string id);
+
+    /// <summary>
     /// Adds the asynchronous.
     /// </summary>
     /// <param name="entity">The entity.</param>

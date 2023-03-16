@@ -1,4 +1,5 @@
 ﻿using NotesPresistence;
+using NotesPresistence.Base;
 
 namespace NotesApplication.Data;
 
@@ -8,7 +9,7 @@ namespace NotesApplication.Data;
 /// </summary>
 /// <typeparam name="TEntity">The type of the t entity.</typeparam>
 /// <seealso cref="NotesApplication.Data.IRepository{TEntity}" />
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, new()
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IHaveId, new() 
 {
     /// <summary>
     /// The database context
@@ -16,7 +17,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, n
     private readonly NotesDbContext _dbContext;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Repository{TEntity}"/> class.
+    /// Initializes a new instance of the <see cref="Repository{TEntity}" /> class.
     /// </summary>
     /// <param name="notesDbContext">The notes database context.</param>
     public Repository(NotesDbContext notesDbContext)
@@ -40,6 +41,17 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, n
         {
             throw new Exception("Couldn't retrieve entities");
         }
+    }
+
+    /// <summary>
+    /// Finds the specified identifier.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>TEntity.</returns>
+    public TEntity? Find(string id)
+    {
+        var ret = _dbContext.Set<TEntity>().Find(id);
+        return ret;
     }
 
     /// <summary>

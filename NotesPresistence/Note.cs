@@ -1,11 +1,12 @@
 ﻿using System.Text.Json.Serialization;
+using NotesPresistence.Base;
 
 namespace NotesPresistence;
 
 /// <summary>
 /// Class Note.
 /// </summary>
-public class Note
+public class Note : IHaveId
 {
     /// <summary>
     /// Gets or sets the user identifier.
