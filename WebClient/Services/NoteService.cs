@@ -1,5 +1,6 @@
 ﻿using NotesApplication.Models;
 using NotesPresistence;
+using System.Net.Http.Json;
 
 namespace WebClient.Services;
 
@@ -18,6 +19,12 @@ public class NoteService : INoteService
         return result;
     }
 
+    public async Task<NoteDetailsVm?> GetIdAsync(string id)
+    {
+        var result = await _httpClient!.GetFromJsonAsync<NoteDetailsVm>($"api/Note/{id}");
+        return result;
+    }
+
     public async Task<HttpResponseMessage> DeleteAsync(string id)
     {
         var result = await _httpClient?.DeleteAsync($"api/note/{id}")!;
@@ -27,6 +34,12 @@ public class NoteService : INoteService
     public async Task<HttpResponseMessage> CreateAsync(CreateNoteDto note)
     {
         var result = await _httpClient?.PostAsJsonAsync<CreateNoteDto>("api/note", note)!;
+        return result;
+    }
+
+    public async Task<HttpResponseMessage> UpdateAsync(UpdateNoteDto note)
+    {
+        var result = await _httpClient?.PutAsJsonAsync<UpdateNoteDto>("api/note", note)!;
         return result;
     }
 }

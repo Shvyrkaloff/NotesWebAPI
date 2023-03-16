@@ -9,12 +9,16 @@ using WebClient.Services;
 namespace WebClient.Components;
 
 /// <summary>
-/// Class CreateNoteModal.
-/// Implements the <see cref="Microsoft.AspNetCore.Components.ComponentBase" />
+/// Class NoteModal.
+/// Implements the <see cref="ComponentBase" />
 /// </summary>
-/// <seealso cref="Microsoft.AspNetCore.Components.ComponentBase" />
-public partial class CreateNoteModal
+/// <seealso cref="ComponentBase" />
+public partial class NoteModal
 {
+    /// <summary>
+    /// Gets or sets the note service.
+    /// </summary>
+    /// <value>The note service.</value>
     [Inject]
     private INoteService? NoteService { get; set; }
 
@@ -23,7 +27,8 @@ public partial class CreateNoteModal
     /// <summary>
     /// The model
     /// </summary>
-    private CreateNoteDto _model = new CreateNoteDto();
+    [Parameter]
+    public CreateNoteDto Model { get; set; } = new();
 
     /// <summary>
     /// Called when [finish failed].
@@ -31,7 +36,7 @@ public partial class CreateNoteModal
     /// <param name="editContext">The edit context.</param>
     private void OnFinishFailed(EditContext editContext)
     {
-        Console.WriteLine($"Failed:{JsonSerializer.Serialize(_model)}");
+        Console.WriteLine($"Failed:{JsonSerializer.Serialize(Model)}");
     }
 
     /// <summary>
@@ -52,13 +57,14 @@ public partial class CreateNoteModal
     /// <summary>
     /// The visible
     /// </summary>
+    /// <value><c>true</c> if visible; otherwise, <c>false</c>.</value>
     [Parameter]
     public bool Visible { get; set; } = false;
 
     /// <summary>
     /// Handles the cancel.
     /// </summary>
-    /// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="MouseEventArgs" /> instance containing the event data.</param>
     private void HandleCancel(MouseEventArgs e)
     {
         Console.WriteLine("e");
@@ -85,10 +91,10 @@ public partial class CreateNoteModal
     /// <summary>
     /// on modal OK button is click, submit form manually
     /// </summary>
-    /// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="MouseEventArgs" /> instance containing the event data.</param>
     private async void HandleOk(MouseEventArgs e)
     {
-        var ret = await NoteService?.CreateAsync(_model)!;
+        var ret = await NoteService?.CreateAsync(Model)!;
         _form.Submit();
     }
 }

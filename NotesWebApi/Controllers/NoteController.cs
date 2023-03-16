@@ -60,7 +60,7 @@ public class NoteController : BaseController
     [HttpGet("{id}")]
     public async Task<ActionResult<NoteDetailsVm>> Get(string id)
     {
-        var query = new GetNoteDatailsQuery(UserId, id);
+        var query = new GetNoteDetailsQuery(UserId, id);
         var vm = await _mediator.Send(query);
         return Ok(vm);
     }
