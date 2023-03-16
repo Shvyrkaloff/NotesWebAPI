@@ -28,7 +28,7 @@ public partial class NoteModal
     /// The model
     /// </summary>
     [Parameter]
-    public CreateNoteDto Model { get; set; } = new();
+    public CreateNoteDto? Model { get; set; } = new();
 
     /// <summary>
     /// Called when [finish failed].
@@ -104,7 +104,9 @@ public partial class NoteModal
     /// <param name="e">The <see cref="MouseEventArgs" /> instance containing the event data.</param>
     private async void HandleOk(MouseEventArgs e)
     {
-        var ret = await NoteService?.CreateAsync(Model)!;
+        var ret = await NoteService?.CreateAsync(Model!)!;
         _form?.Submit();
+
+        StateHasChanged();
     }
 }

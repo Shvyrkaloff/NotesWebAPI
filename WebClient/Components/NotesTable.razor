@@ -1,6 +1,9 @@
-﻿<NoteModal 
-    @bind-Visible="@IsVisible"
-    Model="@Dto"/>
+﻿@if (IsVisible)
+{
+    <NoteModal
+        @bind-Visible="@IsVisible"
+        Model="@Dto"/>
+}
 
 <Button Type="primary" OnClick="@ShowModal">
     Добавить
