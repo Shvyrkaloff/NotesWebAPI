@@ -55,12 +55,16 @@ public partial class NotesTable
     private int _total = 0;
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="NotesTable"/> is visible.
+    /// Gets or sets a value indicating whether this instance is visible.
     /// </summary>
-    /// <value><c>true</c> if visible; otherwise, <c>false</c>.</value>
-    private bool Visible { get; set; }
+    /// <value><c>true</c> if this instance is visible; otherwise, <c>false</c>.</value>
+    private bool IsVisible { get; set; } = false;
 
-    private CreateNoteDto? Dto { get; set; } = new CreateNoteDto();
+    /// <summary>
+    /// Gets or sets the dto.
+    /// </summary>
+    /// <value>The dto.</value>
+    private CreateNoteDto? Dto { get; set; } = new();
 
     /// <summary>
     /// On initialized as an asynchronous operation.
@@ -128,10 +132,10 @@ public partial class NotesTable
         Dto = new CreateNoteDto()
         {
             Title = ret?.Title! ?? "default",
-            Details = ret?.Details!,
+            Details = ret?.Details!
         };
 
-        ShowModal();
+        IsVisible = true;
     }
 
     /// <summary>
@@ -139,6 +143,8 @@ public partial class NotesTable
     /// </summary>
     private void ShowModal()
     {
-        Visible = true;
+        Dto = new CreateNoteDto();
+
+        IsVisible = true;
     }
 }

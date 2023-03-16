@@ -1,4 +1,6 @@
-﻿<NoteModal Visible="@Visible" Model="@Dto"></NoteModal>
+﻿<NoteModal 
+    @bind-Visible="@IsVisible"
+    Model="@Dto"/>
 
 <Button Type="primary" OnClick="@ShowModal">
     Добавить
@@ -24,7 +26,7 @@
             </Space>            
             <Space>
                 <SpaceItem>
-                    <Button Danger OnClick="() => UpdateAsync(context.Id)">Update</Button>
+                    <Button OnClick="() => UpdateAsync(context.Id)">Update</Button>
                 </SpaceItem>
             </Space>
         </ActionColumn>

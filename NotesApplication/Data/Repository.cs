@@ -17,7 +17,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
     private readonly NotesDbContext _dbContext;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Repository{TEntity}"/> class.
+    /// Initializes a new instance of the <see cref="Repository{TEntity}" /> class.
     /// </summary>
     /// <param name="notesDbContext">The notes database context.</param>
     public Repository(NotesDbContext notesDbContext)
@@ -43,6 +43,11 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
         }
     }
 
+    /// <summary>
+    /// Finds the specified identifier.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>TEntity.</returns>
     public TEntity? Find(string id)
     {
         var ret = _dbContext.Set<TEntity>().Find(id);

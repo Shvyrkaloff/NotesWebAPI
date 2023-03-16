@@ -42,13 +42,13 @@ public partial class NoteModal
     /// <summary>
     /// The loading
     /// </summary>
-    bool loading = false;
+    private bool _loading = false;
 
     /// <summary>
     /// Toggles the specified value.
     /// </summary>
     /// <param name="value">if set to <c>true</c> [value].</param>
-    void toggle(bool value) => loading = value;
+    private void Toggle(bool value) => _loading = value;
 
     #endregion
 
@@ -60,6 +60,16 @@ public partial class NoteModal
     /// <value><c>true</c> if visible; otherwise, <c>false</c>.</value>
     [Parameter]
     public bool Visible { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<bool> VisibleChanged { get; set; }
+
+    private async Task OnVisibleChanged(ChangeEventArgs e)
+    {
+        Visible = (bool)e.Value!;
+
+        await VisibleChanged.InvokeAsync(Visible);
+    }
 
     /// <summary>
     /// Handles the cancel.
@@ -76,7 +86,7 @@ public partial class NoteModal
     /// <summary>
     /// The form
     /// </summary>
-    private Form<CreateNoteDto> _form;
+    private Form<CreateNoteDto>? _form;
 
     /// <summary>
     /// when form is submited, close the modal
@@ -95,6 +105,6 @@ public partial class NoteModal
     private async void HandleOk(MouseEventArgs e)
     {
         var ret = await NoteService?.CreateAsync(Model)!;
-        _form.Submit();
+        _form?.Submit();
     }
 }
