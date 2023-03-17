@@ -1,14 +1,15 @@
 ﻿using System.Text.Json.Serialization;
 using AutoMapper;
+using NotesPresistence.Entities;
 using NotesPresistence.Mappings;
 
-namespace NotesPresistence;
+namespace NotesPresistence.Dto;
 
 /// <summary>
 /// Class NoteDetailsVm.
-/// Implements the <see cref="NotesPresistence.Mappings.IMapWith{NotesPresistence.Note}" />
+/// Implements the <see cref="IMapWith{Note}" />
 /// </summary>
-/// <seealso cref="NotesPresistence.Mappings.IMapWith{NotesPresistence.Note}" />
+/// <seealso cref="IMapWith{Note}" />
 public class NoteDetailsVm : IMapWith<Note>
 {
     /// <summary>

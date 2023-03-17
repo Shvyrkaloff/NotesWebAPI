@@ -1,15 +1,16 @@
 ﻿using AutoMapper;
 using MediatR;
 using NotesApplication.Data;
-using NotesPresistence;
+using NotesPresistence.Dto;
+using NotesPresistence.Entities;
 
 namespace NotesApplication.Notes.Queries.GetNoteDetails;
 
 /// <summary>
 /// Class GetNoteDetailsQueryHandler.
-/// Implements the <see cref="MediatR.IRequestHandler{NotesApplication.Notes.Queries.GetNoteDetails.GetNoteDetailsQuery, NotesPresistence.NoteDetailsVm}" />
+/// Implements the <see cref="MediatR.IRequestHandler{NotesApplication.Notes.Queries.GetNoteDetails.GetNoteDetailsQuery, NotesPresistence.Dto.NoteDetailsVm}" />
 /// </summary>
-/// <seealso cref="MediatR.IRequestHandler{NotesApplication.Notes.Queries.GetNoteDetails.GetNoteDetailsQuery, NotesPresistence.NoteDetailsVm}" />
+/// <seealso cref="MediatR.IRequestHandler{NotesApplication.Notes.Queries.GetNoteDetails.GetNoteDetailsQuery, NotesPresistence.Dto.NoteDetailsVm}" />
 public class GetNoteDetailsQueryHandler : IRequestHandler<GetNoteDetailsQuery, NoteDetailsVm>
 {
     /// <summary>
@@ -38,7 +39,7 @@ public class GetNoteDetailsQueryHandler : IRequestHandler<GetNoteDetailsQuery, N
     public async Task<NoteDetailsVm> Handle(GetNoteDetailsQuery request, CancellationToken cancellationToken)
     {
         var detailsQuery = _repository.Find(request.Id);
-            
+
         return _mapper.Map(detailsQuery, new NoteDetailsVm());
     }
 }

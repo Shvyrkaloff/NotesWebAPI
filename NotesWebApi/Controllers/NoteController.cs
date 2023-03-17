@@ -7,7 +7,7 @@ using NotesApplication.Notes.Commands.DeleteCommand;
 using NotesApplication.Notes.Commands.UpdateNote;
 using NotesApplication.Notes.Queries.GetNoteDetails;
 using NotesApplication.Notes.Queries.GetNotesList;
-using NotesPresistence;
+using NotesPresistence.Dto;
 
 namespace NotesWebApi.Controllers;
 
@@ -77,9 +77,11 @@ public class NoteController : BaseController
         //var command = _mapper.Map<CreateNoteCommand>(note);
         var command = new CreateNoteCommand()
         {
+            UserId = null,
             Title = note.Title,
             Details = note.Details
         };
+
         if (UserId != null)
             command.UserId = UserId;
         var noteId = await _mediator.Send(command);

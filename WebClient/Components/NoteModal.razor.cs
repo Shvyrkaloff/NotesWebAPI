@@ -84,6 +84,11 @@ public partial class NoteModal
     public bool IsCreate { get; set; }
 
     /// <summary>
+    /// The form
+    /// </summary>
+    private Form<CreateNoteDto>? _form;
+
+    /// <summary>
     /// Handles the <see cref="E:VisibleChanged" /> event.
     /// </summary>
     /// <param name="e">The <see cref="ChangeEventArgs" /> instance containing the event data.</param>
@@ -92,6 +97,8 @@ public partial class NoteModal
         Visible = (bool)e.Value!;
 
         await VisibleChanged.InvokeAsync(Visible);
+
+        StateHasChanged();
     }
 
     /// <summary>
@@ -107,11 +114,6 @@ public partial class NoteModal
     #endregion
 
     /// <summary>
-    /// The form
-    /// </summary>
-    private Form<CreateNoteDto>? _form;
-
-    /// <summary>
     /// when form is submited, close the modal
     /// </summary>
     /// <param name="editContext">The edit context.</param>
@@ -119,6 +121,8 @@ public partial class NoteModal
     {
         Console.WriteLine("e");
         Visible = false;
+
+        StateHasChanged();
     }
 
     /// <summary>
