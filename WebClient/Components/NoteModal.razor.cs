@@ -143,6 +143,6 @@ public partial class NoteModal
         }
 
         _form?.Submit();
-        StateHasChanged();
+        NavigationManager.NavigateTo(NavigationManager.Uri, true);
     }
 }

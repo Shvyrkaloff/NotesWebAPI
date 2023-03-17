@@ -52,7 +52,7 @@ public partial class NotesTable
     /// <summary>
     /// The total
     /// </summary>
-    private int _total = 0;
+    private int _total = 1;
 
     /// <summary>
     /// Gets or sets a value indicating whether this instance is visible.
@@ -130,8 +130,7 @@ public partial class NotesTable
 
             _total = Notes.Count;
         }
-
-        StateHasChanged();
+        NavigationManager.NavigateTo(NavigationManager.Uri, true);
     }
 
     /// <summary>
@@ -153,7 +152,7 @@ public partial class NotesTable
         };
         
         IsVisible = true;
-        StateHasChanged();
+        NavigationManager.NavigateTo(NavigationManager.Uri, true);
     }
 
     /// <summary>
