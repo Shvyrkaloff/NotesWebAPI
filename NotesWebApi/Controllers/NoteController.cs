@@ -77,9 +77,11 @@ public class NoteController : BaseController
         //var command = _mapper.Map<CreateNoteCommand>(note);
         var command = new CreateNoteCommand()
         {
+            UserId = null,
             Title = note.Title,
             Details = note.Details
         };
+
         if (UserId != null)
             command.UserId = UserId;
         var noteId = await _mediator.Send(command);
@@ -94,7 +96,15 @@ public class NoteController : BaseController
     [HttpPut]
     public async Task<ActionResult> Update([FromBody] UpdateNoteDto updateNoteDto)
     {
-        var command = _mapper.Map<UpdateNoteCommand>(updateNoteDto);
+        //todo: correct map
+        //var command = _mapper.Map<UpdateNoteCommand>(updateNoteDto);
+        var command = new UpdateNoteCommand()
+        {
+            Id = updateNoteDto.Id,
+            Title = updateNoteDto.Title,
+            Details = updateNoteDto.Details
+        };
+
         if (UserId != null) 
             command.UserId = UserId;
         await _mediator.Send(command);

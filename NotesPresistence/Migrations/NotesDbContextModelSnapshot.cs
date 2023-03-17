@@ -97,6 +97,14 @@ namespace NotesPresistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "00000000-0000-0000-0000-000000000000",
+                            Login = "Default",
+                            Password = "Default"
+                        });
                 });
 
             modelBuilder.Entity("NotesPresistence.Entities.Note", b =>

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NotesPresistence.Migrations
 {
     [DbContext(typeof(NotesDbContext))]
-    [Migration("20230317161658_Initial")]
+    [Migration("20230317163655_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -100,6 +100,14 @@ namespace NotesPresistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "00000000-0000-0000-0000-000000000000",
+                            Login = "Default",
+                            Password = "Default"
+                        });
                 });
 
             modelBuilder.Entity("NotesPresistence.Entities.Note", b =>

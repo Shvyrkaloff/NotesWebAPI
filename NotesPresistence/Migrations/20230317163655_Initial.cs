@@ -65,6 +65,11 @@ namespace NotesPresistence.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "Login", "Password" },
+                values: new object[] { "00000000-0000-0000-0000-000000000000", null, "Default", "Default" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Notes_GroupNotesId",
                 table: "Notes",

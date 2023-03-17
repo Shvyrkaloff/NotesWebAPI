@@ -62,6 +62,8 @@ public class NotesDbContext : DbContext, INotesDbContext
     {
         builder.ApplyConfiguration(new NoteConfiguration());
 
+        DataSeeders.DataSeederUsers.SeedData(builder);
+
         base.OnModelCreating(builder);
     }
 }
