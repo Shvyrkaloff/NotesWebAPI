@@ -3,6 +3,7 @@ using NotesPresistence;
 using NotesPresistence.Mapping;
 using System.Reflection;
 using NotesApplication.Data;
+using NotesPresistence.DependencyInjection;
 
 namespace NotesWebApi;
 

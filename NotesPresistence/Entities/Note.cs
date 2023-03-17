@@ -1,19 +1,13 @@
 ﻿using System.Text.Json.Serialization;
 using NotesPresistence.Base;
 
-namespace NotesPresistence;
+namespace NotesPresistence.Entities;
 
 /// <summary>
 /// Class Note.
 /// </summary>
 public class Note : IHaveId
 {
-    /// <summary>
-    /// Gets or sets the user identifier.
-    /// </summary>
-    /// <value>The user identifier.</value>
-    public string? UserId { get; set; }
-
     /// <summary>
     /// Gets or sets the identifier.
     /// </summary>
@@ -45,4 +39,22 @@ public class Note : IHaveId
     /// <value>The edit date.</value>
     [JsonIgnore]
     public DateTime? EditDate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user identifier.
+    /// </summary>
+    /// <value>The user identifier.</value>
+    public string? UserId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user.
+    /// </summary>
+    /// <value>The user.</value>
+    public virtual User? User { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is important.
+    /// </summary>
+    /// <value><c>true</c> if this instance is important; otherwise, <c>false</c>.</value>
+    public bool IsImportant { get; set; }
 }

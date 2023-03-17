@@ -7,7 +7,7 @@ using NotesApplication.Notes.Commands.DeleteCommand;
 using NotesApplication.Notes.Commands.UpdateNote;
 using NotesApplication.Notes.Queries.GetNoteDetails;
 using NotesApplication.Notes.Queries.GetNotesList;
-using NotesPresistence;
+using NotesPresistence.Entities;
 
 namespace NotesWebApi.Controllers;
 
@@ -94,15 +94,7 @@ public class NoteController : BaseController
     [HttpPut]
     public async Task<ActionResult> Update([FromBody] UpdateNoteDto updateNoteDto)
     {
-        //todo: correct map
-        //var command = _mapper.Map<UpdateNoteCommand>(updateNoteDto);
-        var command = new UpdateNoteCommand()
-        {
-            Id = updateNoteDto.Id,
-            Title = updateNoteDto.Title,
-            Details = updateNoteDto.Details
-        };
-
+        var command = _mapper.Map<UpdateNoteCommand>(updateNoteDto);
         if (UserId != null) 
             command.UserId = UserId;
         await _mediator.Send(command);

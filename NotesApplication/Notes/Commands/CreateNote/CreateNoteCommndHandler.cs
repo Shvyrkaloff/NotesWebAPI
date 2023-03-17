@@ -1,13 +1,14 @@
 ﻿using MediatR;
 using NotesPresistence;
+using NotesPresistence.Entities;
 
 namespace NotesApplication.Notes.Commands.CreateNote;
 
 /// <summary>
 /// Class CreateNoteCommndHandler.
-/// Implements the <see cref="MediatR.IRequestHandler{NotesApplication.Notes.Commands.CreateNote.CreateNoteCommand, System.String}" />
+/// Implements the <see cref="string" />
 /// </summary>
-/// <seealso cref="MediatR.IRequestHandler{NotesApplication.Notes.Commands.CreateNote.CreateNoteCommand, System.String}" />
+/// <seealso cref="string" />
 public class CreateNoteCommndHandler :IRequestHandler<CreateNoteCommand, string>
 {
     /// <summary>

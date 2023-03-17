@@ -1,4 +1,4 @@
-﻿using NotesPresistence;
+﻿using NotesPresistence.Entities;
 
 namespace NotesApplication.Notes.Queries.GetNotesList;
 

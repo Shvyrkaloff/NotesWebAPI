@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NotesApplication.Common.Exception;
 using NotesPresistence;
+using NotesPresistence.Entities;
 
 namespace NotesApplication.Notes.Commands.UpdateNote;
 

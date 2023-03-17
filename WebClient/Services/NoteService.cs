@@ -1,5 +1,6 @@
 ﻿using NotesApplication.Models;
 using NotesPresistence;
+using NotesPresistence.Entities;
 
 namespace WebClient.Services;
 

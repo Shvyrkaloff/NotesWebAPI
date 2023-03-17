@@ -2,7 +2,7 @@
 using AntDesign.TableModels;
 using Microsoft.AspNetCore.Components;
 using NotesApplication.Models;
-using NotesPresistence;
+using NotesPresistence.Entities;
 using System.Text.Json;
 using WebClient.Services;
 

@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using MediatR;
 using NotesApplication.Data;
-using NotesPresistence;
+using NotesPresistence.Entities;
 
 namespace NotesApplication.Notes.Queries.GetNotesList;
 
 /// <summary>
 /// Class GetListNoteQueryHandler.
-/// Implements the <see cref="MediatR.IRequestHandler{NotesApplication.Notes.Queries.GetNotesList.GetListNoteQuery, System.Collections.Generic.List{NotesPresistence.NoteLookUpDto}}" />
+/// Implements the <see cref="MediatR.IRequestHandler{NotesApplication.Notes.Queries.GetNotesList.GetListNoteQuery, System.Collections.Generic.List{NoteLookUpDto}}" />
 /// </summary>
-/// <seealso cref="MediatR.IRequestHandler{NotesApplication.Notes.Queries.GetNotesList.GetListNoteQuery, System.Collections.Generic.List{NotesPresistence.NoteLookUpDto}}" />
+/// <seealso cref="MediatR.IRequestHandler{NotesApplication.Notes.Queries.GetNotesList.GetListNoteQuery, System.Collections.Generic.List{NoteLookUpDto}}" />
 public class GetListNoteQueryHandler : IRequestHandler<GetListNoteQuery, List<NoteLookUpDto>?>
 {
     /// <summary>
