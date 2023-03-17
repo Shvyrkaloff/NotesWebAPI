@@ -7,7 +7,7 @@ using NotesApplication.Notes.Commands.DeleteCommand;
 using NotesApplication.Notes.Commands.UpdateNote;
 using NotesApplication.Notes.Queries.GetNoteDetails;
 using NotesApplication.Notes.Queries.GetNotesList;
-using NotesPresistence.Entities;
+using NotesPresistence.Dto;
 
 namespace NotesWebApi.Controllers;
 

@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
+using NotesPresistence.Entities;
 using NotesPresistence.Mappings;
 
-namespace NotesPresistence.Entities;
+namespace NotesPresistence.Dto;
 
 /// <summary>
 /// Class NoteLookUpDto.
-/// Implements the <see cref="NotesPresistence.Mappings.IMapWith{NotesPresistence.Entities.Note}" />
+/// Implements the <see cref="IMapWith{Note}" />
 /// </summary>
-/// <seealso cref="NotesPresistence.Mappings.IMapWith{NotesPresistence.Entities.Note}" />
+/// <seealso cref="IMapWith{Note}" />
 public class NoteLookUpDto : IMapWith<Note>
 {
     /// <summary>

@@ -17,18 +17,18 @@ namespace NotesWebApi
                 var serviceProvider = scope.ServiceProvider;
                 try
                 {
-                    var conntext = serviceProvider.GetRequiredService<NotesDbContext>();
-                    DbInitializer.Initialize(conntext);
+                    var context = serviceProvider.GetRequiredService<NotesDbContext>();
+                    DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)
                 {
-
+                    Console.WriteLine(ex);
                 }
             }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuider => { webBuider.UseStartup<Startup>(); });
+            Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }
 

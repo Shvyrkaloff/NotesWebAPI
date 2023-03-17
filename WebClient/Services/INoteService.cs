@@ -1,5 +1,5 @@
 ﻿using NotesApplication.Models;
-using NotesPresistence.Entities;
+using NotesPresistence.Dto;
 
 namespace WebClient.Services;
 

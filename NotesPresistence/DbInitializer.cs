@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace NotesPresistence;
 
-namespace NotesPresistence
+/// <summary>
+/// Class DbInitializer.
+/// </summary>
+public class DbInitializer
 {
-    public class DbInitializer
+    /// <summary>
+    /// Initializes the specified context.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public static void Initialize(NotesDbContext context)
     {
-        public static void Initialize(NotesDbContext context)
-        {
-            context.Database.EnsureCreated();
-        }
+        context.Database.EnsureCreated();
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 using AutoMapper;
+using NotesPresistence.Entities;
 using NotesPresistence.Mappings;
 
-namespace NotesPresistence.Entities;
+namespace NotesPresistence.Dto;
 
 /// <summary>
 /// Class NoteDetailsVm.

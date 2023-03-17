@@ -39,5 +39,5 @@ public class User : IHaveId
     /// Gets or sets the notes.
     /// </summary>
     /// <value>The notes.</value>
-    public virtual List<Note>? Notes { get; set; }
+    public virtual List<Note>? Notes { get; set; } = new();
 }

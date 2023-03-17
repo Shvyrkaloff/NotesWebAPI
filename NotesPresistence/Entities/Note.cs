@@ -12,7 +12,7 @@ public class Note : IHaveId
     /// Gets or sets the identifier.
     /// </summary>
     /// <value>The identifier.</value>
-    public string? Id { get; set; }
+    public string Id { get; set; }
 
     /// <summary>
     /// Gets or sets the title.
@@ -41,6 +41,12 @@ public class Note : IHaveId
     public DateTime? EditDate { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether this instance is important.
+    /// </summary>
+    /// <value><c>true</c> if this instance is important; otherwise, <c>false</c>.</value>
+    public bool IsImportant { get; set; }
+
+    /// <summary>
     /// Gets or sets the user identifier.
     /// </summary>
     /// <value>The user identifier.</value>
@@ -53,8 +59,14 @@ public class Note : IHaveId
     public virtual User? User { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this instance is important.
+    /// Gets or sets the group notes identifier.
     /// </summary>
-    /// <value><c>true</c> if this instance is important; otherwise, <c>false</c>.</value>
-    public bool IsImportant { get; set; }
+    /// <value>The group notes identifier.</value>
+    public string? GroupNotesId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the group notes.
+    /// </summary>
+    /// <value>The group notes.</value>
+    public virtual GroupNotes? GroupNotes { get; set; }
 }

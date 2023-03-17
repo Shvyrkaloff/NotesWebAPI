@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using NotesApplication.Data;
+using NotesPresistence.Dto;
 using NotesPresistence.Entities;
 
 namespace NotesApplication.Notes.Queries.GetNotesList;
