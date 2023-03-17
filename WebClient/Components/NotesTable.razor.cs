@@ -152,7 +152,6 @@ public partial class NotesTable
         };
         
         IsVisible = true;
-        NavigationManager.NavigateTo(NavigationManager.Uri, true);
     }
 
     /// <summary>
